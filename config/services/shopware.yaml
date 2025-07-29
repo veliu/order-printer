@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Veliu\OrderPrinter\Infra\Shopware\Api\Client: ~
+    Veliu\OrderPrinter\Domain\Api\ClientInterface: '@Veliu\OrderPrinter\Infra\Shopware\Api\Client'
+
+    access.token.provider.client:
+        class: Veliu\OrderPrinter\Infra\Shopware\Api\Client
+        arguments:
+            $responseHandler: '@Veliu\OrderPrinter\Domain\Api\ResponseHandlerInterface'
+            $accessTokenProvider: null
+
+    Veliu\OrderPrinter\Infra\Shopware\Api\AccessTokenProvider:
+        arguments:
+            $client: '@access.token.provider.client'
+
+    Veliu\OrderPrinter\Infra\Shopware\Api\AccessTokenProviderInterface: '@Veliu\OrderPrinter\Infra\Shopware\Api\AccessTokenProvider'
+
+    Veliu\OrderPrinter\Infra\Shopware\Api\ResponseHandler: ~
+    Veliu\OrderPrinter\Domain\Api\ResponseHandlerInterface: '@Veliu\OrderPrinter\Infra\Shopware\Api\ResponseHandler'
+
+    Veliu\OrderPrinter\Infra\Shopware\OrderRepository: ~
+    Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface: '@Veliu\OrderPrinter\Infra\Shopware\OrderRepository'
+

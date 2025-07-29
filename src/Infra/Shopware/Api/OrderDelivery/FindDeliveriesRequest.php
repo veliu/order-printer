@@ -31,6 +31,14 @@ final readonly class FindDeliveriesRequest implements RequestInterface
     public function getBody(): ?array
     {
         $body = [
+            'includes' => [
+                'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress'],
+                'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState'],
+                'order_line_item' => ['id', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
+                'order_address' => ['id', 'firstName', 'lastName', 'street', 'zipcode', 'city', 'phoneNumber'],
+                'state_machine_state' => ['technicalName'],
+                'calculated_price' => ['totalPrice'],
+            ],
             'filter' => [
                 [
                     'type' => 'equals',

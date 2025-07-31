@@ -25,6 +25,7 @@ final readonly class Order
         public Address $address,
         public array $items,
         public bool $isNew,
+        public \DateTimeImmutable $createdAt,
     ) {
     }
 }

@@ -15,7 +15,7 @@ use Veliu\OrderPrinter\Domain\Receipt\Receipt;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptGeneratorInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptPrinterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptSaverInterface;
-use Veliu\OrderPrinter\Domain\Service\PrintOrderProcessor;
+use Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor;
 
 final class PrintOrderHandlerTest extends TestCase
 {
@@ -32,7 +32,7 @@ final class PrintOrderHandlerTest extends TestCase
         $this->receiptSaver = $this->createMock(ReceiptSaverInterface::class);
         $this->receiptPrinter = $this->createMock(ReceiptPrinterInterface::class);
 
-        $printOrderProcessor = new PrintOrderProcessor(
+        $printOrderProcessor = new DefaultPrintOrderProcessor(
             $this->orderRepository,
             $this->receiptGenerator,
             $this->receiptSaver,
@@ -59,6 +59,7 @@ final class PrintOrderHandlerTest extends TestCase
             new Address('Dwight Schrute', 'Schrute Farm', 'Scranton', '123455656'),
             [],
             true,
+            new \DateTimeImmutable('2025-07-31')
         );
 
         $receipt = new Receipt('123456', 'Test');

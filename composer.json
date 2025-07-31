@@ -11,6 +11,7 @@
         "azjezz/psl": "^3.3",
         "doctrine/doctrine-bundle": "^2.15",
         "doctrine/orm": "^3.5",
+        "mike42/escpos-php": "^4.0",
         "nyholm/psr7": "*",
         "symfony/console": "7.3.*",
         "symfony/doctrine-messenger": "7.3.*",

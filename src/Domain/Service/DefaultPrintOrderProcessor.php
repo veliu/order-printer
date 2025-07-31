@@ -10,9 +10,9 @@ use Veliu\OrderPrinter\Domain\Receipt\ReceiptGeneratorInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptPrinterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptSaverInterface;
 
-final readonly class PrintOrderProcessor
+/** @psalm-api  */
+final readonly class DefaultPrintOrderProcessor implements PrintOrderProcessorInterface
 {
-    /** @psalm-api  */
     public function __construct(
         private OrderRepositoryInterface $orderRepository,
         private ReceiptGeneratorInterface $receiptGenerator,
@@ -21,6 +21,7 @@ final readonly class PrintOrderProcessor
     ) {
     }
 
+    #[\Override]
     public function __invoke(Order $order, bool $markInProgress): void
     {
         $receipt = $this->receiptGenerator->fromOrder($order);

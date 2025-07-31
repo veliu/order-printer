@@ -31,6 +31,7 @@ final readonly class Order
         public float $amountTotal,
         public array $lineItems,
         public StateMachineState $stateMachineState,
+        public \DateTimeImmutable $createdAt,
     ) {
     }
 
@@ -44,6 +45,7 @@ final readonly class Order
             (float) $data['amountTotal'],
             array_map([OrderLineItem::class, 'fromArray'], $data['lineItems']),
             StateMachineState::fromArray($data['stateMachineState']),
+            new \DateTimeImmutable($data['createdAt']),
         );
     }
 

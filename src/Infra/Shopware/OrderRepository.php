@@ -79,6 +79,7 @@ final readonly class OrderRepository implements OrderRepositoryInterface
             $address,
             array_map(fn (OrderLineItem $item) => self::transformItem($item), $containerLineItems),
             OrderStateEnum::OPEN === $orderDelivery->order->stateMachineState->technicalName,
+            $orderDelivery->order->createdAt,
         );
     }
 

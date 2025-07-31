@@ -49,7 +49,9 @@ class ReceiptGeneratorTest extends TestCase
                     quantity: 2
                 ),
             ],
-            isNew: true
+            isNew: true,
+            createdAt: new \DateTimeImmutable('2025-07-31')
+
         );
 
         $this->formatter->method('initialize')->willReturnSelf();

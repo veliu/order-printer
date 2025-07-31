@@ -23,7 +23,7 @@ final class FindDeliveriesRequestTest extends TestCase
         $expectedBody = [
             'includes' => [
                 'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress'],
-                'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState'],
+                'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState', 'createdAt'],
                 'order_line_item' => ['id', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
                 'order_address' => ['id', 'firstName', 'lastName', 'street', 'zipcode', 'city', 'phoneNumber'],
                 'state_machine_state' => ['technicalName'],

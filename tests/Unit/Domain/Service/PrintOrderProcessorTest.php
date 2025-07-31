@@ -14,10 +14,10 @@ use Veliu\OrderPrinter\Domain\Receipt\Receipt;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptGeneratorInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptPrinterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptSaverInterface;
-use Veliu\OrderPrinter\Domain\Service\PrintOrderProcessor;
+use Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor;
 
 /**
- * @covers \Veliu\OrderPrinter\Domain\Service\PrintOrderProcessor
+ * @covers \Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor
  */
 class PrintOrderProcessorTest extends TestCase
 {
@@ -25,7 +25,7 @@ class PrintOrderProcessorTest extends TestCase
     private ReceiptGeneratorInterface|MockObject $receiptGenerator;
     private ReceiptSaverInterface|MockObject $receiptSaver;
     private ReceiptPrinterInterface|MockObject $receiptPrinter;
-    private PrintOrderProcessor $processor;
+    private DefaultPrintOrderProcessor $processor;
     private Order $order;
     private Receipt $receipt;
 
@@ -58,7 +58,8 @@ class PrintOrderProcessorTest extends TestCase
             shippingCost: '10.00',
             address: $address,
             items: [$orderItem],
-            isNew: true
+            isNew: true,
+            createdAt: new \DateTimeImmutable('2025-07-31')
         );
 
         // Create a real Receipt instance
@@ -67,7 +68,7 @@ class PrintOrderProcessorTest extends TestCase
             content: 'Test receipt content'
         );
 
-        $this->processor = new PrintOrderProcessor(
+        $this->processor = new DefaultPrintOrderProcessor(
             $this->orderRepository,
             $this->receiptGenerator,
             $this->receiptSaver,
@@ -171,7 +172,9 @@ class PrintOrderProcessorTest extends TestCase
             shippingCost: '10.00',
             address: $address,
             items: [$orderItem],
-            isNew: false
+            isNew: false,
+            createdAt: new \DateTimeImmutable('2025-07-31')
+
         );
 
         // Expectations

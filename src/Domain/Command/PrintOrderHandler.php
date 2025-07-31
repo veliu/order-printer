@@ -6,7 +6,7 @@ namespace Veliu\OrderPrinter\Domain\Command;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
-use Veliu\OrderPrinter\Domain\Service\PrintOrderProcessor;
+use Veliu\OrderPrinter\Domain\Service\PrintOrderProcessorInterface;
 
 /** @psalm-api */
 #[AsMessageHandler]
@@ -14,7 +14,7 @@ final readonly class PrintOrderHandler
 {
     public function __construct(
         private OrderRepositoryInterface $orderRepository,
-        private PrintOrderProcessor $printOrderProcessor,
+        private PrintOrderProcessorInterface $printOrderProcessor,
     ) {
     }
 

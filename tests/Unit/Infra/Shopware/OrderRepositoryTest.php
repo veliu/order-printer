@@ -73,7 +73,8 @@ class OrderRepositoryTest extends TestCase
             '50,00',
             new Address('John Doe', 'Test Street 1', 'Test City', '+1234567890'),
             [],
-            true
+            true,
+            new \DateTimeImmutable('2025-07-31')
         );
 
         $this->client
@@ -125,6 +126,7 @@ class OrderRepositoryTest extends TestCase
                 'stateMachineState' => [
                     'technicalName' => OrderStateEnum::OPEN->value,
                 ],
+                'createdAt' => '2025-07-31T12:00:00+00:00',
             ],
             'shippingOrderAddress' => [
                 'firstName' => 'John',

@@ -51,6 +51,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
         $printer = $this->setOrderItems($printer, $order->items);
         $printer = $this->setTotals($printer, $order);
 
+        $printer->feed(2);
         $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
 
@@ -62,7 +63,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
     private function setHeader(Printer $printer, Order $order): Printer
     {
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $printer->setTextSize(2, 2);
+        $printer->setTextSize(2, 1);
 
         $printer->text(sprintf("Bestellnummer: %s\n", $order->number));
         $printer->text(sprintf("Bestellzeitpunkt: %s\n", $order->createdAt->format('d.m.Y H:i:s')));

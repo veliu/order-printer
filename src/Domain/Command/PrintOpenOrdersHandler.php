@@ -6,6 +6,7 @@ namespace Veliu\OrderPrinter\Domain\Command;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
 
 /**
@@ -25,7 +26,10 @@ final readonly class PrintOpenOrdersHandler
         $orders = $this->orderRepository->findNewNumbers();
 
         foreach ($orders as $orderNumber) {
-            $this->messageBus->dispatch(new PrintOrderCommand($orderNumber, $command->markInProgress));
+            $this->messageBus->dispatch(
+                new PrintOrderCommand($orderNumber, $command->markInProgress),
+                [new TransportNamesStamp('sync')]
+            );
         }
     }
 }

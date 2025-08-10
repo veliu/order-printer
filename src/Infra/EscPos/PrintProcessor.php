@@ -65,7 +65,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
         $printer->text(sprintf("Bestellnummer: %s\n", $order->number));
         $printer->text(sprintf("Bestellzeitpunkt: %s\n", $order->createdAt->format('d.m.Y H:i:s')));
         if ($customerComment = $order->customerComment) {
-            $printer->text($customerComment);
+            $printer->text($customerComment."\n");
         }
         $printer->text($this->getDivider());
 

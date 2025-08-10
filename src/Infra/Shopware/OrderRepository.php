@@ -74,6 +74,7 @@ final readonly class OrderRepository implements OrderRepositoryInterface
         return new Order(
             $orderDelivery->order->id,
             $orderDelivery->order->orderNumber,
+            $orderDelivery->order->customerComment,
             number_format($orderDelivery->order->amountTotal, 2, ',', ''),
             number_format($orderDelivery->shippingCosts->totalPrice, 2, ',', ''),
             $address,

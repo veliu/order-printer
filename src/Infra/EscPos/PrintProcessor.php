@@ -46,6 +46,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
 
         $printer = new Printer($connector);
         $printer->initialize();
+        $printer->setTextSize(1, 1);
         $printer = $this->setHeader($printer, $order);
         $printer = $this->setAddress($printer, $order->address);
         $printer = $this->setOrderItems($printer, $order->items);

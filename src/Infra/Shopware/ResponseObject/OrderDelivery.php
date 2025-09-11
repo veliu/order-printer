@@ -17,6 +17,7 @@ final readonly class OrderDelivery
         public CalculatedPrice $shippingCosts,
         public OrderAddress $shippingOrderAddress,
         public Order $order,
+        public ShippingMethod $shippingMethod,
     ) {
     }
 
@@ -28,12 +29,14 @@ final readonly class OrderDelivery
             CalculatedPrice::fromArray($data['shippingCosts']),
             OrderAddress::fromArray($data['shippingOrderAddress']),
             Order::fromArray($data['order']),
+            ShippingMethod::fromArray($data['shippingMethod']),
         );
     }
 
     public static function arrayShape(): TypeInterface
     {
         return shape([
+            'shippingMethod' => dict(array_key(), mixed()),
             'shippingCosts' => dict(array_key(), mixed()),
             'shippingOrderAddress' => dict(array_key(), mixed()),
             'order' => dict(array_key(), mixed()),

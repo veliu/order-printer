@@ -17,6 +17,7 @@ final readonly class Order
      * @psalm-param non-empty-string $totalPrice
      * @psalm-param non-empty-string $shippingCost
      * @psalm-param non-empty-list<OrderItem> $items
+     * @psalm-param non-empty-string $shippingMethodName
      */
     public function __construct(
         public string $identifier,
@@ -27,6 +28,7 @@ final readonly class Order
         public Address $address,
         public array $items,
         public bool $isNew,
+        public string $shippingMethodName,
         public \DateTimeImmutable $createdAt,
     ) {
     }

@@ -63,6 +63,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
 
     private function setHeader(Printer $printer, Order $order): Printer
     {
+        $printer->text(sprintf("$order->shippingMethodName\n"));
         $printer->text(sprintf("Bestellnummer: %s\n", $order->number));
         $printer->text(sprintf("Bestellzeitpunkt: %s\n", $order->createdAt->format('d.m.Y H:i:s')));
         if ($customerComment = $order->customerComment) {

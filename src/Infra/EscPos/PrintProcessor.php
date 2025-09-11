@@ -48,7 +48,9 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
         $printer->initialize();
         $printer->setTextSize(1, 1);
         $printer = $this->setHeader($printer, $order);
-        $printer = $this->setAddress($printer, $order->address);
+        if ('Abholung' !== $order->shippingMethodName) {
+            $printer = $this->setAddress($printer, $order->address);
+        }
         $printer = $this->setOrderItems($printer, $order->items);
         $printer = $this->setTotals($printer, $order);
 

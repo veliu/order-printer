@@ -46,7 +46,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
 
         $printer = new Printer($connector);
         $printer->initialize();
-        $printer->setTextSize(1, 1);
+        $printer->setTextSize(1, 2);
         $printer = $this->setHeader($printer, $order);
         if ('Abholung' !== $order->shippingMethodName) {
             $printer = $this->setAddress($printer, $order->address);
@@ -65,9 +65,16 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
 
     private function setHeader(Printer $printer, Order $order): Printer
     {
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setTextSize(2, 2);
         $printer->text(sprintf("$order->shippingMethodName\n"));
+        $printer->feed(1);
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $printer->setTextSize(1, 2);
         $printer->text(sprintf("Bestellnummer: %s\n", $order->number));
-        $printer->text(sprintf("Bestellzeitpunkt: %s\n", $order->createdAt->format('d.m.Y H:i:s')));
+        $printer->text(sprintf("Bestellzeitpunkt: %s\n", $order->createdAt
+            ->setTimezone(new \DateTimeZone('Europe/Berlin'))
+            ->format('d.m.Y H:i:s')));
         if ($customerComment = $order->customerComment) {
             $printer->text($customerComment."\n");
         }

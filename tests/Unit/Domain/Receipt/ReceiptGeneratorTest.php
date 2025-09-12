@@ -33,6 +33,7 @@ class ReceiptGeneratorTest extends TestCase
         $order = new Order(
             identifier: '123',
             number: 'ORD-001',
+            customerComment: null,
             totalPrice: '99.99',
             shippingCost: '4.99',
             address: new Address(
@@ -50,6 +51,7 @@ class ReceiptGeneratorTest extends TestCase
                 ),
             ],
             isNew: true,
+            shippingMethodName: 'Lieferung',
             createdAt: new \DateTimeImmutable('2025-07-31')
 
         );

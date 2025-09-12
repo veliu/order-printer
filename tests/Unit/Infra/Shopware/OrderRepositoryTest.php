@@ -69,12 +69,14 @@ class OrderRepositoryTest extends TestCase
         $order = new Order(
             'order-id-1',
             '10001',
+            null,
             '1000,00',
             '50,00',
             new Address('John Doe', 'Test Street 1', 'Test City', '+1234567890'),
             [],
             true,
-            new \DateTimeImmutable('2025-07-31')
+            'Lieferung',
+            new \DateTimeImmutable('2025-07-31'),
         );
 
         $this->client
@@ -127,6 +129,7 @@ class OrderRepositoryTest extends TestCase
                     'technicalName' => OrderStateEnum::OPEN->value,
                 ],
                 'createdAt' => '2025-07-31T12:00:00+00:00',
+                'customerComment' => null,
             ],
             'shippingOrderAddress' => [
                 'firstName' => 'John',
@@ -138,6 +141,7 @@ class OrderRepositoryTest extends TestCase
             'shippingCosts' => [
                 'totalPrice' => 50.00,
             ],
+            'shippingMethod' => ['name' => 'Lieferung'],
         ];
     }
 }

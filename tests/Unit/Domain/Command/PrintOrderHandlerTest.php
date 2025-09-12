@@ -54,11 +54,13 @@ final class PrintOrderHandlerTest extends TestCase
         $order = new Order(
             'some-identifier',
             $orderNumber,
-            '100.00',
+            null,
+            '0.00',
             '0.00',
             new Address('Dwight Schrute', 'Schrute Farm', 'Scranton', '123455656'),
             [],
             true,
+            'Lieferung',
             new \DateTimeImmutable('2025-07-31')
         );
 

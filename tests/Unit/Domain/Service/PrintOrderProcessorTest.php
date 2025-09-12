@@ -54,11 +54,13 @@ class PrintOrderProcessorTest extends TestCase
         $this->order = new Order(
             identifier: 'ORD-001',
             number: 'ORDER-001',
+            customerComment: null,
             totalPrice: '99.99',
             shippingCost: '10.00',
             address: $address,
             items: [$orderItem],
             isNew: true,
+            shippingMethodName: 'Lieferung',
             createdAt: new \DateTimeImmutable('2025-07-31')
         );
 
@@ -168,11 +170,13 @@ class PrintOrderProcessorTest extends TestCase
         $nonNewOrder = new Order(
             identifier: 'ORD-001',
             number: 'ORDER-001',
+            customerComment: null,
             totalPrice: '99.99',
             shippingCost: '10.00',
             address: $address,
             items: [$orderItem],
             isNew: false,
+            shippingMethodName: 'Lieferung',
             createdAt: new \DateTimeImmutable('2025-07-31')
 
         );

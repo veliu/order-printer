@@ -123,7 +123,7 @@ class PrintProcessorTest extends TestCase
 
         // Check header information
         $this->assertStringContainsString('Bestellnummer: ORDER123', $readableContent);
-        $this->assertStringContainsString('01.01.2024 12:00:00', $readableContent);
+        $this->assertStringContainsString('01.01.2024 13:00:00', $readableContent);
 
         // Check address information
         $this->assertStringContainsString('John Doe', $readableContent);
@@ -180,11 +180,13 @@ class PrintProcessorTest extends TestCase
         $order = new Order(
             'XMAS2024',
             'XMAS2024',
+            null,
             '100.00',
             '10.00',
             $this->createTestAddress(),
             [$this->createTestOrderItem()],
             false,
+            'Lieferung',
             $createdAt
         );
 
@@ -245,6 +247,7 @@ class PrintProcessorTest extends TestCase
         return new Order(
             'ORDER123',
             'ORDER123',
+            null,
             '43.96',
             '5.99',
             $this->createTestAddress(),
@@ -253,6 +256,7 @@ class PrintProcessorTest extends TestCase
                 new OrderItem('1', 'Test Product 2', '15.99', 1),
             ],
             $isNew,
+            'Lieferung',
             new \DateTimeImmutable('2024-01-01 12:00:00')
         );
     }
@@ -262,11 +266,13 @@ class PrintProcessorTest extends TestCase
         return new Order(
             'ORDER123',
             'ORDER123',
+            null,
             '43.96',
             '5.99',
             $this->createTestAddress(),
             $items,
             false,
+            'Lieferung',
             new \DateTimeImmutable('2024-01-01 12:00:00')
         );
     }

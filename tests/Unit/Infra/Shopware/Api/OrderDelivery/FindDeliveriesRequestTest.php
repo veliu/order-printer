@@ -22,12 +22,13 @@ final class FindDeliveriesRequestTest extends TestCase
         $request = new FindDeliveriesRequest();
         $expectedBody = [
             'includes' => [
-                'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress'],
-                'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState', 'createdAt'],
+                'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress', 'shippingMethod'],
+                'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState', 'createdAt', 'customerComment'],
                 'order_line_item' => ['id', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
                 'order_address' => ['id', 'firstName', 'lastName', 'street', 'zipcode', 'city', 'phoneNumber'],
                 'state_machine_state' => ['technicalName'],
                 'calculated_price' => ['totalPrice'],
+                'shipping_method' => ['name'],
             ],
             'filter' => [
                 [
@@ -37,6 +38,7 @@ final class FindDeliveriesRequestTest extends TestCase
                 ],
             ],
             'associations' => [
+                'shippingMethod' => [],
                 'order' => [
                     'associations' => ['lineItems' => [], 'stateMachineState' => []],
                 ],

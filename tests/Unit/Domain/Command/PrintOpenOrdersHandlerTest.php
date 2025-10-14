@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Veliu\OrderPrinter\Tests\Domain\Command;
+namespace Veliu\OrderPrinter\Tests\Unit\Domain\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

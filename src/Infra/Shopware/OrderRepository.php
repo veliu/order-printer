@@ -58,7 +58,7 @@ final readonly class OrderRepository implements OrderRepositoryInterface
 
     private static function transform(OrderDelivery $orderDelivery): Order
     {
-        $containerLineItems = array_values(array_filter($orderDelivery->order->lineItems, fn (OrderLineItem $item) => 'container' === $item->type));
+        $containerLineItems = self::removeItemWhenContainerExists($orderDelivery->order->lineItems);
 
         $address = new Address(
             sprintf(
@@ -83,6 +83,82 @@ final readonly class OrderRepository implements OrderRepositoryInterface
             $orderDelivery->shippingMethod->name,
             $orderDelivery->order->createdAt,
         );
+    }
+
+    /**
+     * @param OrderLineItem[] $allOrderLineItems
+     *
+     * @return OrderLineItem[]
+     */
+    private static function removeItemWhenContainerExists(array $allOrderLineItems): array
+    {
+        $items = [];
+
+        // Group items by product number
+        $groupedByProductNumber = [];
+        foreach ($allOrderLineItems as $item) {
+            // Skip extras (products starting with 'E')
+            if (str_starts_with($item->productNumber, 'E')) {
+                continue;
+            }
+
+            $groupedByProductNumber[$item->productNumber][] = $item;
+        }
+
+        // Process each product number group
+        foreach ($groupedByProductNumber as $productNumber => $itemsGroup) {
+            $containerItem = null;
+            $regularItem = null;
+
+            // Find container and regular items
+            foreach ($itemsGroup as $item) {
+                if ('container' === $item->type) {
+                    $containerItem = $item;
+                } else {
+                    $regularItem = $item;
+                }
+            }
+
+            // Prefer container if it exists
+            if (null !== $containerItem) {
+                // Adjust the label: replace the regular product name with the product number
+                if (null !== $regularItem) {
+                    // Find what's different between container and regular label
+                    // Container: "Pizza Margherita +Käse", Regular: "Pizza Margherita"
+                    // Result should be: "21 +Käse"
+                    $newLabel = str_replace($regularItem->label, (string) $productNumber, $containerItem->label);
+                    $containerItem = new OrderLineItem(
+                        $newLabel,
+                        $containerItem->quantity,
+                        $containerItem->totalPrice,
+                        $containerItem->type,
+                        $containerItem->productNumber,
+                    );
+                } else {
+                    // No regular item to compare, just use product number
+                    $containerItem = new OrderLineItem(
+                        (string) $productNumber,
+                        $containerItem->quantity,
+                        $containerItem->totalPrice,
+                        $containerItem->type,
+                        $containerItem->productNumber,
+                    );
+                }
+                $items[$productNumber] = $containerItem;
+            } elseif (null !== $regularItem) {
+                // No container, replace entire label with product number
+                $regularItem = new OrderLineItem(
+                    (string) $productNumber,
+                    $regularItem->quantity,
+                    $regularItem->totalPrice,
+                    $regularItem->type,
+                    $regularItem->productNumber,
+                );
+                $items[$productNumber] = $regularItem;
+            }
+        }
+
+        return $items;
     }
 
     private static function transformItem(OrderLineItem $item): OrderItem

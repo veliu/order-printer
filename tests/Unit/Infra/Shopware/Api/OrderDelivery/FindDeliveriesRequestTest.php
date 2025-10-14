@@ -22,20 +22,13 @@ final class FindDeliveriesRequestTest extends TestCase
         $request = new FindDeliveriesRequest();
         $expectedBody = [
             'includes' => [
-                'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress', 'shippingMethod'],
+                'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress', 'shippingMethod', 'extensions'],
                 'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState', 'createdAt', 'customerComment'],
                 'order_line_item' => ['id', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
                 'order_address' => ['id', 'firstName', 'lastName', 'street', 'zipcode', 'city', 'phoneNumber'],
                 'state_machine_state' => ['technicalName'],
                 'calculated_price' => ['totalPrice'],
                 'shipping_method' => ['name'],
-            ],
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'order.lineItems.type',
-                    'value' => 'container',
-                ],
             ],
             'associations' => [
                 'shippingMethod' => [],
@@ -54,12 +47,12 @@ final class FindDeliveriesRequestTest extends TestCase
         $request = new FindDeliveriesRequest(orderNumber: 'ORDER123');
         $body = $request->getBody();
 
-        self::assertCount(2, $body['filter']);
+        self::assertCount(1, $body['filter']);
         self::assertEquals([
             'type' => 'equals',
             'field' => 'order.orderNumber',
             'value' => 'ORDER123',
-        ], $body['filter'][1]);
+        ], $body['filter'][0]);
     }
 
     public function testGetBodyWithState(): void
@@ -67,12 +60,12 @@ final class FindDeliveriesRequestTest extends TestCase
         $request = new FindDeliveriesRequest(state: OrderStateEnum::COMPLETE);
         $body = $request->getBody();
 
-        self::assertCount(2, $body['filter']);
+        self::assertCount(1, $body['filter']);
         self::assertEquals([
             'type' => 'equals',
             'field' => 'order.stateMachineState.technicalName',
             'value' => OrderStateEnum::COMPLETE->value,
-        ], $body['filter'][1]);
+        ], $body['filter'][0]);
     }
 
     public function testGetBodyWithBothParameters(): void
@@ -83,16 +76,16 @@ final class FindDeliveriesRequestTest extends TestCase
         );
         $body = $request->getBody();
 
-        self::assertCount(3, $body['filter']);
+        self::assertCount(2, $body['filter']);
         self::assertEquals([
             'type' => 'equals',
             'field' => 'order.stateMachineState.technicalName',
             'value' => OrderStateEnum::COMPLETE->value,
-        ], $body['filter'][1]);
+        ], $body['filter'][0]);
         self::assertEquals([
             'type' => 'equals',
             'field' => 'order.orderNumber',
             'value' => 'ORDER123',
-        ], $body['filter'][2]);
+        ], $body['filter'][1]);
     }
 }

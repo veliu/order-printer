@@ -9,6 +9,7 @@ use Psl\Type\TypeInterface;
 use function Psl\Type\float;
 use function Psl\Type\literal_scalar;
 use function Psl\Type\non_empty_string;
+use function Psl\Type\nullable;
 use function Psl\Type\positive_int;
 use function Psl\Type\shape;
 use function Psl\Type\uint;
@@ -17,12 +18,16 @@ use function Psl\Type\union;
 final readonly class OrderLineItem
 {
     /**
+     * @psalm-param non-empty-string $id
+     * @psalm-param non-empty-string|null $parentId
      * @psalm-param non-empty-string $label
      * @psalm-param positive-int $quantity
      * @psalm-param non-empty-string $type
      * @psalm-param non-empty-string $productNumber
      */
     public function __construct(
+        public string $id,
+        public ?string $parentId,
         public string $label,
         public int $quantity,
         public float $totalPrice,
@@ -36,6 +41,8 @@ final readonly class OrderLineItem
         $data = self::arrayShape()->coerce($array);
 
         return new self(
+            $data['id'],
+            $data['parentId'] ?? null,
             $data['label'],
             $data['quantity'],
             (float) $data['totalPrice'],
@@ -47,6 +54,8 @@ final readonly class OrderLineItem
     public static function arrayShape(): TypeInterface
     {
         return shape([
+            'id' => non_empty_string(),
+            'parentId' => nullable(non_empty_string()),
             'label' => non_empty_string(),
             'quantity' => positive_int(),
             'totalPrice' => union(float(), uint()),

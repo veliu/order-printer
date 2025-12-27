@@ -24,7 +24,7 @@ final class FindDeliveriesRequestTest extends TestCase
             'includes' => [
                 'order_delivery' => ['id', 'order', 'shippingCosts', 'shippingOrderAddress', 'shippingMethod', 'extensions'],
                 'order' => ['id', 'orderNumber', 'amountTotal', 'lineItems', 'stateMachineState', 'createdAt', 'customerComment'],
-                'order_line_item' => ['id', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
+                'order_line_item' => ['id', 'parentId', 'label', 'quantity', 'totalPrice', 'type', 'payload'],
                 'order_address' => ['id', 'firstName', 'lastName', 'street', 'zipcode', 'city', 'phoneNumber'],
                 'state_machine_state' => ['technicalName'],
                 'calculated_price' => ['totalPrice'],

@@ -115,6 +115,8 @@ class OrderRepositoryTest extends TestCase
                 'amountTotal' => 1000.00,
                 'lineItems' => [
                     [
+                        'id' => 'line-item-id-1',
+                        'parentId' => null,
                         'type' => 'container',
                         'productNumber' => 'PROD-001',
                         'label' => 'Test Product',

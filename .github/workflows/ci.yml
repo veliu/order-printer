@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php-versions: ['8.4']
+                php-versions: ['8.5']
 
         steps:
             - name: Checkout code
@@ -51,15 +51,6 @@ jobs:
               run: |
                   vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
-            - name: Upload coverage to Codecov
-              uses: codecov/codecov-action@v5
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  file: ./coverage.xml
-                  flags: unittests
-                  name: codecov-umbrella
-                  fail_ci_if_error: true
-
             - name: PHP CS Fixer
               run: |
                   vendor/bin/php-cs-fixer fix --dry-run --diff
@@ -78,7 +69,6 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.4'
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite
                   coverage: none
 
@@ -97,7 +87,6 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.4'
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite
                   coverage: none
 

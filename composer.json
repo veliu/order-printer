@@ -9,7 +9,7 @@
         "ext-iconv": "*",
         "ext-sqlite3": "*",
         "azjezz/psl": "^3.3",
-        "doctrine/doctrine-bundle": "^2.18.2",
+        "doctrine/doctrine-bundle": "^3.0.0",
         "doctrine/orm": "^3.6",
         "mike42/escpos-php": "^4.0",
         "nyholm/psr7": ">=1.8.2",

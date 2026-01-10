@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Veliu\OrderPrinter\Tests\Domain\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Veliu\OrderPrinter\Domain\Address\Address;
@@ -17,6 +18,7 @@ use Veliu\OrderPrinter\Domain\Receipt\ReceiptPrinterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptSaverInterface;
 use Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor;
 
+#[CoversClass(PrintOrderHandler::class)]
 final class PrintOrderHandlerTest extends TestCase
 {
     private OrderRepositoryInterface&MockObject $orderRepository;
@@ -25,6 +27,7 @@ final class PrintOrderHandlerTest extends TestCase
     private ReceiptPrinterInterface&MockObject $receiptPrinter;
     private PrintOrderHandler $handler;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
@@ -57,7 +60,7 @@ final class PrintOrderHandlerTest extends TestCase
             null,
             '0.00',
             '0.00',
-            new Address('Dwight Schrute', 'Schrute Farm', 'Scranton', '123455656'),
+            new Address('Dwight Schrute', 'Schrute Farm', 'Scranton', '123455656', null),
             [],
             true,
             'Lieferung',

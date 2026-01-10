@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Veliu\OrderPrinter\Tests\Domain\Order\Exception;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Veliu\OrderPrinter\Domain\Order\Exception\OrderNotFound;
 
-/** @covers \Veliu\OrderPrinter\Domain\Order\Exception\OrderNotFound */
+#[CoversClass(OrderNotFound::class)]
 final class OrderNotFoundTest extends TestCase
 {
     public function testConstructorSetsCorrectMessageAndCode(): void

@@ -1,0 +1,141 @@
+{
+    "total" : 1,
+    "data" : [ {
+        "shippingCosts" : {
+            "totalPrice" : 0,
+            "apiAlias" : "calculated_price"
+        },
+        "shippingOrderAddress" : {
+            "firstName" : "firstname",
+            "lastName" : "lastname",
+            "street" : "dummy street 1",
+            "zipcode" : null,
+            "city" : "Obertshausen",
+            "phoneNumber" : "0123456789",
+            "additionalAddressLine1" : null,
+            "id" : "019ba1b16fa771b99dde862759dea41f",
+            "apiAlias" : "order_address"
+        },
+        "shippingMethod" : {
+            "name" : "Lieferung",
+            "apiAlias" : "shipping_method"
+        },
+        "order" : {
+            "createdAt" : "2026-01-09T07:38:38.916+00:00",
+            "orderNumber" : "10556",
+            "amountTotal" : 40,
+            "lineItems" : [ {
+                "quantity" : 2,
+                "totalPrice" : 33,
+                "label" : "Cordon Bleu",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -35,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ ],
+                    "features" : [ ],
+                    "parentId" : null,
+                    "createdAt" : "2024-02-19 20:41:59.919",
+                    "optionIds" : null,
+                    "streamIds" : null,
+                    "isCloseout" : false,
+                    "categoryIds" : [ "018d9f1649c9709580aab97a16368d8d", "0197baf512e97b3bb7b848aec03a2a28", "018dbe35d335749cabb98de40a1b95da" ],
+                    "propertyIds" : null,
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "112",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : true
+                },
+                "parentId" : null,
+                "type" : "product",
+                "id" : "019ba1b16fa771b99dde86275711281c",
+                "apiAlias" : "order_line_item"
+            }, {
+                "quantity" : 1,
+                "totalPrice" : 7,
+                "label" : "Gemischter Salat +Ei -Tomaten",
+                "payload" : {
+                    "productNumber" : "13"
+                },
+                "parentId" : null,
+                "type" : "container",
+                "id" : "019ba1b16fa771b99dde862757f6af51",
+                "apiAlias" : "order_line_item"
+            }, {
+                "quantity" : 1,
+                "totalPrice" : 6.5,
+                "label" : "Gemischter Salat",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -12,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ {
+                        "group" : "Soße",
+                        "option" : "Joghurtsoße"
+                    } ],
+                    "features" : [ ],
+                    "parentId" : "018dbca5c94970a3b908c3b785c26e3f",
+                    "createdAt" : "2025-07-25 13:00:49.354",
+                    "optionIds" : [ "019841a3880c7004a4e7ee381f860af3" ],
+                    "streamIds" : null,
+                    "isCloseout" : false,
+                    "categoryIds" : [ "018d9f1649c9709580aab97a16368d8d", "018dadb30d2c76fb96bbd99f6c13baa4" ],
+                    "propertyIds" : [ "0198388bd5f374029e124dca4d465977", "019838bb644271d891c61bd75a6661cd", "019838bd523076cbaf4b70e7de38b204", "019838cb1dec71d2a0b5a3931b5f0d32", "019a926f272373dc84f3c2eba873d655" ],
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "13",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : false
+                },
+                "parentId" : "019ba1b16fa771b99dde862757f6af51",
+                "type" : "product",
+                "id" : "019ba1b16fa771b99dde8627589a9bd4",
+                "apiAlias" : "order_line_item"
+            }, {
+                "quantity" : 1,
+                "totalPrice" : 0.5,
+                "label" : "Ei",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -12,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ ],
+                    "features" : [ ],
+                    "parentId" : null,
+                    "createdAt" : "2025-08-06 20:14:16.312",
+                    "optionIds" : null,
+                    "streamIds" : [ "01970d1609b87757bf697571c443f0e4", "019841acebf17ef987573c7c2ea5ed9f" ],
+                    "isCloseout" : false,
+                    "categoryIds" : [ "01970d0c41ae71bfb9a660c30b210c89", "01970d0d0f477a9891e36d89da170799" ],
+                    "propertyIds" : null,
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "E22",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : false
+                },
+                "parentId" : "019ba1b16fa771b99dde862757f6af51",
+                "type" : "product",
+                "id" : "019ba1b16fa771b99dde862759221c66",
+                "apiAlias" : "order_line_item"
+            } ],
+            "stateMachineState" : {
+                "technicalName" : "in_progress",
+                "apiAlias" : "state_machine_state"
+            },
+            "customerComment" : "Wunschlieferzeit: 11:30",
+            "id" : "019ba1b16fa771b99dde86275b38cb51",
+            "apiAlias" : "order"
+        },
+        "id" : "019ba1b16fa771b99dde86275a6bbc56",
+        "apiAlias" : "order_delivery"
+    } ],
+    "aggregations" : [ ]
+}

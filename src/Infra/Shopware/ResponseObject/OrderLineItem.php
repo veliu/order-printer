@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Veliu\OrderPrinter\Infra\Shopware\ResponseObject;
 
 use Psl\Type\TypeInterface;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
 
 use function Psl\Type\float;
 use function Psl\Type\literal_scalar;
 use function Psl\Type\non_empty_string;
 use function Psl\Type\nullable;
+use function Psl\Type\optional;
 use function Psl\Type\positive_int;
 use function Psl\Type\shape;
 use function Psl\Type\uint;
@@ -33,6 +35,7 @@ final readonly class OrderLineItem
         public float $totalPrice,
         public string $type,
         public string $productNumber,
+        public ?ReceiptPositionPrintTypeEnum $printType,
     ) {
     }
 
@@ -48,6 +51,7 @@ final readonly class OrderLineItem
             (float) $data['totalPrice'],
             $data['type'],
             $data['payload']['productNumber'],
+            ReceiptPositionPrintTypeEnum::tryFrom($data['payload']['shopbite_receipt_print_type'] ?? '')
         );
     }
 
@@ -62,6 +66,9 @@ final readonly class OrderLineItem
             'type' => union(literal_scalar('product'), literal_scalar('container')),
             'payload' => shape([
                 'productNumber' => non_empty_string(),
+                'shopbite_receipt_print_type' => optional(nullable(
+                    union(literal_scalar('number'), literal_scalar('label'))
+                )),
             ], allow_unknown_fields: true),
         ], allow_unknown_fields: true);
     }

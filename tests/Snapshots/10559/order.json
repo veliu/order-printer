@@ -1,0 +1,130 @@
+{
+    "total" : 1,
+    "data" : [ {
+        "shippingCosts" : {
+            "totalPrice" : 0,
+            "apiAlias" : "calculated_price"
+        },
+        "shippingOrderAddress" : {
+            "firstName" : "firstname",
+            "lastName" : "lastname",
+            "street" : "dummy street 1",
+            "zipcode" : null,
+            "city" : "Obertshausen",
+            "phoneNumber" : "0123456789",
+            "additionalAddressLine1" : null,
+            "id" : "019ba3b6437872a390a23fb807a5e545",
+            "apiAlias" : "order_address"
+        },
+        "shippingMethod" : {
+            "name" : "Lieferung",
+            "apiAlias" : "shipping_method"
+        },
+        "order" : {
+            "createdAt" : "2026-01-09T17:03:09.713+00:00",
+            "orderNumber" : "10559",
+            "amountTotal" : 41,
+            "lineItems" : [ {
+                "quantity" : 1,
+                "totalPrice" : 9.5,
+                "label" : "Pizza Mama Lucia",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -20,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ ],
+                    "features" : [ ],
+                    "parentId" : null,
+                    "createdAt" : "2024-02-18 15:05:02.323",
+                    "optionIds" : null,
+                    "streamIds" : null,
+                    "isCloseout" : false,
+                    "categoryIds" : [ "018d9f1649c9709580aab97a16368d8d", "018dadb399837af3aa669c8fff4f4d6c" ],
+                    "propertyIds" : [ "019838d0c4817cdabe982dc9bd3b3477", "01983906a5077d7d8f832bbdfb70ba41", "0198390985997440880c44eb4b882a4d", "0198390a492b76f3bcfd000be653f410", "01983c8dc73a75378ca9f9a028174f22" ],
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "34",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : false
+                },
+                "parentId" : null,
+                "type" : "product",
+                "id" : "019ba3b6437872a390a23fb807447034",
+                "apiAlias" : "order_line_item"
+            }, {
+                "quantity" : 2,
+                "totalPrice" : 22,
+                "label" : "Insalata di Pollo Essig & Öl",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -5,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ {
+                        "group" : "Soße",
+                        "option" : "Essig & Öl"
+                    } ],
+                    "features" : [ ],
+                    "parentId" : "018dbca9c360705d94e803b83aea3e24",
+                    "createdAt" : "2025-07-25 12:54:33.996",
+                    "optionIds" : [ "019841a3ea047d43bc91dda643575f84" ],
+                    "streamIds" : null,
+                    "isCloseout" : false,
+                    "categoryIds" : [ "018d9f1649c9709580aab97a16368d8d", "018dadb30d2c76fb96bbd99f6c13baa4" ],
+                    "propertyIds" : [ "01971862e73f7d7cb21b49c673a09efc", "0198388bd5f374029e124dca4d465977", "019838bb644271d891c61bd75a6661cd", "019838bd523076cbaf4b70e7de38b204", "019838cb1dec71d2a0b5a3931b5f0d32", "019838e7299e7f008def449bf7a60354", "019838eb846674959652438c63633977" ],
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "18-EÖ",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : true
+                },
+                "parentId" : null,
+                "type" : "product",
+                "id" : "019ba3b6437872a390a23fb80763b99a",
+                "apiAlias" : "order_line_item"
+            }, {
+                "quantity" : 1,
+                "totalPrice" : 9.5,
+                "label" : "Penne arabiata",
+                "payload" : {
+                    "isNew" : false,
+                    "stock" : -8,
+                    "taxId" : "018d9f1649bd7368a2db0f6082d96622",
+                    "tagIds" : null,
+                    "options" : [ ],
+                    "features" : [ ],
+                    "parentId" : null,
+                    "createdAt" : "2024-02-18 21:56:56.099",
+                    "optionIds" : null,
+                    "streamIds" : null,
+                    "isCloseout" : false,
+                    "categoryIds" : [ "018d9f1649c9709580aab97a16368d8d", "0197baf0a6a971eaada59ed5c84138de", "018dbe3556367eaf9fbe02d8cd126924" ],
+                    "propertyIds" : null,
+                    "releaseDate" : null,
+                    "customFields" : [ ],
+                    "productNumber" : "80",
+                    "manufacturerId" : null,
+                    "purchasePrices" : "{\"extensions\":[],\"currencyId\":\"b7d2554b0ce847cd82f3ac9bd1c0dfca\",\"net\":0,\"gross\":0,\"linked\":true,\"listPrice\":null,\"percentage\":null,\"regulationPrice\":null}",
+                    "markAsTopseller" : false
+                },
+                "parentId" : null,
+                "type" : "product",
+                "id" : "019ba3b6437872a390a23fb80778c643",
+                "apiAlias" : "order_line_item"
+            } ],
+            "stateMachineState" : {
+                "technicalName" : "in_progress",
+                "apiAlias" : "state_machine_state"
+            },
+            "customerComment" : "Wunschlieferzeit: 18:35",
+            "id" : "019ba3b6437872a390a23fb808045ad1",
+            "apiAlias" : "order"
+        },
+        "id" : "019ba3b6437872a390a23fb807c34986",
+        "apiAlias" : "order_delivery"
+    } ],
+    "aggregations" : [ ]
+}

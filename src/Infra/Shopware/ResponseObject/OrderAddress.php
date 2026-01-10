@@ -18,6 +18,7 @@ final readonly class OrderAddress
      * @psalm-param non-empty-string $street
      * @psalm-param non-empty-string $city
      * @psalm-param non-empty-string|null $phoneNumber
+     * @psalm-param non-empty-string|null $additionalAddressLine1
      */
     public function __construct(
         public string $firstName,
@@ -25,6 +26,7 @@ final readonly class OrderAddress
         public string $street,
         public string $city,
         public ?string $phoneNumber,
+        public ?string $additionalAddressLine1,
     ) {
     }
 
@@ -38,6 +40,7 @@ final readonly class OrderAddress
             $data['street'],
             $data['city'],
             $data['phoneNumber'],
+            $data['additionalAddressLine1'],
         );
     }
 
@@ -49,6 +52,7 @@ final readonly class OrderAddress
             'street' => non_empty_string(),
             'city' => non_empty_string(),
             'phoneNumber' => nullable(non_empty_string()),
+            'additionalAddressLine1' => nullable(non_empty_string()),
         ], allow_unknown_fields: true);
     }
 }

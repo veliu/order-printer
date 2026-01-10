@@ -10,6 +10,7 @@ use Veliu\OrderPrinter\Domain\Order\Exception\OrderNotFound;
 use Veliu\OrderPrinter\Domain\Order\Order;
 use Veliu\OrderPrinter\Domain\Order\OrderItem;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
 use Veliu\OrderPrinter\Infra\Shopware\Api\Order\FindOrderNumbersRequest;
 use Veliu\OrderPrinter\Infra\Shopware\Api\Order\FindOrderNumbersResponse;
 use Veliu\OrderPrinter\Infra\Shopware\Api\Order\UpdateOrderStateRequest;
@@ -56,7 +57,7 @@ final readonly class OrderRepository implements OrderRepositoryInterface
         return $response->orderNumbers;
     }
 
-    private static function transform(OrderDelivery $orderDelivery): Order
+    public static function transform(OrderDelivery $orderDelivery): Order
     {
         $containerLineItems = array_values(array_filter($orderDelivery->order->lineItems, static fn (OrderLineItem $lineItem) => null === $lineItem->parentId));
 
@@ -69,6 +70,7 @@ final readonly class OrderRepository implements OrderRepositoryInterface
             $orderDelivery->shippingOrderAddress->street,
             $orderDelivery->shippingOrderAddress->city,
             $orderDelivery->shippingOrderAddress->phoneNumber,
+            $orderDelivery->shippingOrderAddress->additionalAddressLine1,
         );
 
         return new Order(
@@ -91,7 +93,8 @@ final readonly class OrderRepository implements OrderRepositoryInterface
             $item->productNumber,
             $item->label,
             number_format($item->totalPrice, 2, ',', ''),
-            $item->quantity
+            $item->quantity,
+            $item->printType ?? ReceiptPositionPrintTypeEnum::LABEL
         );
     }
 }

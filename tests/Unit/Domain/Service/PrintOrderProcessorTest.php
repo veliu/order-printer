@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Veliu\OrderPrinter\Domain\Service;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Veliu\OrderPrinter\Domain\Address\Address;
@@ -12,13 +13,12 @@ use Veliu\OrderPrinter\Domain\Order\OrderItem;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
 use Veliu\OrderPrinter\Domain\Receipt\Receipt;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptGeneratorInterface;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptPrinterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptSaverInterface;
 use Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor;
 
-/**
- * @covers \Veliu\OrderPrinter\Domain\Service\DefaultPrintOrderProcessor
- */
+#[CoversClass(DefaultPrintOrderProcessor::class)]
 class PrintOrderProcessorTest extends TestCase
 {
     private OrderRepositoryInterface|MockObject $orderRepository;
@@ -29,6 +29,7 @@ class PrintOrderProcessorTest extends TestCase
     private Order $order;
     private Receipt $receipt;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
@@ -41,14 +42,16 @@ class PrintOrderProcessorTest extends TestCase
             productNumber: 'PROD-001',
             label: 'Test Product',
             price: '99.99',
-            quantity: 1
+            quantity: 1,
+            receiptPositionPrintType: ReceiptPositionPrintTypeEnum::LABEL
         );
 
         $address = new Address(
             name: 'John Doe',
             street: '123 Test St',
             city: 'Test City',
-            phone: '0171 123456'
+            phone: '0171 123456',
+            additional: null,
         );
 
         $this->order = new Order(
@@ -157,14 +160,16 @@ class PrintOrderProcessorTest extends TestCase
             productNumber: 'PROD-001',
             label: 'Test Product',
             price: '99.99',
-            quantity: 1
+            quantity: 1,
+            receiptPositionPrintType: ReceiptPositionPrintTypeEnum::LABEL,
         );
 
         $address = new Address(
             name: 'John Doe',
             street: '123 Test St',
             city: 'Test City',
-            phone: '0171 123456'
+            phone: '0171 123456',
+            additional: null,
         );
 
         $nonNewOrder = new Order(

@@ -23,6 +23,7 @@ class OrderRepositoryTest extends TestCase
     private ClientInterface|MockObject $client;
     private OrderRepository $repository;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->client = $this->createMock(ClientInterface::class);
@@ -39,7 +40,6 @@ class OrderRepositoryTest extends TestCase
             ->method('request')
             ->with($this->isInstanceOf(FindDeliveriesRequest::class))
             ->willReturn(new ApiResponse(200, ['total' => 1, 'data' => [$orderDelivery]]));
-
 
         $order = $this->repository->getByOrderNumber($orderNumber);
 
@@ -72,7 +72,7 @@ class OrderRepositoryTest extends TestCase
             null,
             '1000,00',
             '50,00',
-            new Address('John Doe', 'Test Street 1', 'Test City', '+1234567890'),
+            new Address('John Doe', 'Test Street 1', 'Test City', '+1234567890', null),
             [],
             true,
             'Lieferung',
@@ -139,6 +139,7 @@ class OrderRepositoryTest extends TestCase
                 'street' => 'Test Street 1',
                 'city' => 'Test City',
                 'phoneNumber' => '+1234567890',
+                'additionalAddressLine1' => null,
             ],
             'shippingCosts' => [
                 'totalPrice' => 50.00,

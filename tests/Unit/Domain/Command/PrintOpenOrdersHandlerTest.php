@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Veliu\OrderPrinter\Tests\Unit\Domain\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -13,7 +14,7 @@ use Veliu\OrderPrinter\Domain\Command\PrintOpenOrdersHandler;
 use Veliu\OrderPrinter\Domain\Command\PrintOrderCommand;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
 
-/** @covers \Veliu\OrderPrinter\Domain\Command\PrintOpenOrdersHandler */
+#[CoversClass(PrintOpenOrdersHandler::class)]
 final class PrintOpenOrdersHandlerTest extends TestCase
 {
     private OrderRepositoryInterface&MockObject $orderRepository;

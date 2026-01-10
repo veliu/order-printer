@@ -10,6 +10,7 @@ use Veliu\OrderPrinter\Domain\Address\Address;
 use Veliu\OrderPrinter\Domain\Order\Order;
 use Veliu\OrderPrinter\Domain\Order\OrderItem;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
 use Veliu\OrderPrinter\Infra\EscPos\PrintProcessor;
 
 class PrintProcessorTest extends TestCase
@@ -21,6 +22,7 @@ class PrintProcessorTest extends TestCase
     private PrintProcessor $printProcessor;
     private OrderRepositoryInterface&MockObject $orderRepository;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
@@ -153,8 +155,8 @@ class PrintProcessorTest extends TestCase
     {
         // Arrange
         $items = [
-            new OrderItem('1', '+Extra Cheese', '2.50', 1),
-            new OrderItem('2', '-No Onions', '0.00', 1),
+            new OrderItem('1', '+Extra Cheese', '2.50', 1, ReceiptPositionPrintTypeEnum::LABEL),
+            new OrderItem('2', '-No Onions', '0.00', 1, ReceiptPositionPrintTypeEnum::LABEL),
         ];
 
         $order = $this->createTestOrderWithCustomItems($items);
@@ -252,8 +254,8 @@ class PrintProcessorTest extends TestCase
             '5.99',
             $this->createTestAddress(),
             [
-                new OrderItem('2', 'Test Product 1', '10.99', 2),
-                new OrderItem('1', 'Test Product 2', '15.99', 1),
+                new OrderItem('2', 'Test Product 1', '10.99', 2, ReceiptPositionPrintTypeEnum::LABEL),
+                new OrderItem('1', 'Test Product 2', '15.99', 1, ReceiptPositionPrintTypeEnum::LABEL),
             ],
             $isNew,
             'Lieferung',
@@ -283,12 +285,13 @@ class PrintProcessorTest extends TestCase
             'John Doe',
             'Test Street 123',
             'Test City',
-            '123456789'
+            '123456789',
+            null
         );
     }
 
     private function createTestOrderItem(): OrderItem
     {
-        return new OrderItem('1', 'Test Product', '10.99', 1);
+        return new OrderItem('1', 'Test Product', '10.99', 1, ReceiptPositionPrintTypeEnum::LABEL);
     }
 }

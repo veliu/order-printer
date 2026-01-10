@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Veliu\OrderPrinter\Tests\Domain\Receipt;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -12,15 +13,15 @@ use Veliu\OrderPrinter\Domain\Order\Order;
 use Veliu\OrderPrinter\Domain\Order\OrderItem;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptFormatterInterface;
 use Veliu\OrderPrinter\Domain\Receipt\ReceiptGenerator;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
 
-/**
- * @covers \Veliu\OrderPrinter\Domain\Receipt\ReceiptGenerator
- */
+#[CoversClass(ReceiptGenerator::class)]
 class ReceiptGeneratorTest extends TestCase
 {
     private ReceiptFormatterInterface&MockObject $formatter;
     private ReceiptGenerator $generator;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->formatter = $this->createMock(ReceiptFormatterInterface::class);
@@ -40,14 +41,16 @@ class ReceiptGeneratorTest extends TestCase
                 name: 'John Doe',
                 street: '123 Main St',
                 city: 'New York',
-                phone: '+1234567890'
+                phone: '+1234567890',
+                additional: null
             ),
             items: [
                 new OrderItem(
                     productNumber: '21',
                     label: 'Pizza Margarita +Extra1 -Extra2',
                     price: '49.99',
-                    quantity: 2
+                    quantity: 2,
+                    receiptPositionPrintType: ReceiptPositionPrintTypeEnum::LABEL
                 ),
             ],
             isNew: true,

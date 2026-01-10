@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Veliu\OrderPrinter\Domain\Order;
 
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionPrintTypeEnum;
+
 final readonly class OrderItem
 {
     public function __construct(
@@ -11,6 +13,7 @@ final readonly class OrderItem
         public string $label,
         public string $price,
         public int $quantity,
+        public ReceiptPositionPrintTypeEnum $receiptPositionPrintType,
     ) {
     }
 }

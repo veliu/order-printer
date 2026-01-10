@@ -8,10 +8,12 @@ use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\MultiplePrintConnector;
 use Mike42\Escpos\Printer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 use Veliu\OrderPrinter\Domain\Address\Address;
 use Veliu\OrderPrinter\Domain\Order\Order;
 use Veliu\OrderPrinter\Domain\Order\OrderItem;
 use Veliu\OrderPrinter\Domain\Order\OrderRepositoryInterface;
+use Veliu\OrderPrinter\Domain\Receipt\ReceiptPositionGenerator;
 use Veliu\OrderPrinter\Domain\Service\PrintOrderProcessorInterface;
 
 /** @psalm-api  */
@@ -19,6 +21,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
 {
     /** @psalm-var non-empty-string */
     private string $fileDirectory;
+    private ReceiptPositionGenerator $receiptPositionGenerator;
 
     /** @psalm-api  */
     public function __construct(
@@ -32,11 +35,13 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
         private OrderRepositoryInterface $orderRepository,
     ) {
         $this->fileDirectory = $projectDir.$dataDirectory;
+        $this->receiptPositionGenerator = new ReceiptPositionGenerator();
     }
 
     #[\Override]
     public function __invoke(Order $order, bool $markInProgress): void
     {
+        $this->createReceiptDirectoryIfNotExists();
         $file = $this->fileDirectory.sprintf('%s_%s.txt', $order->number, $order->createdAt->format('Y-m-d_H-i-s'));
 
         $connector = new MultiplePrintConnector(
@@ -45,18 +50,22 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
         );
 
         $printer = new Printer($connector);
-        $printer->initialize();
-        $printer->setTextSize(1, 2);
-        $printer = $this->setHeader($printer, $order);
-        if ('Abholung' !== $order->shippingMethodName) {
-            $printer = $this->setAddress($printer, $order->address);
-        }
-        $printer = $this->setOrderItems($printer, $order->items);
-        $printer = $this->setTotals($printer, $order);
 
-        $printer->feed(2);
-        $printer->cut(Printer::CUT_PARTIAL);
-        $printer->close();
+        try {
+            $printer->initialize();
+            $printer->setTextSize(1, 2);
+            $printer = $this->setHeader($printer, $order);
+            if ('Abholung' !== $order->shippingMethodName) {
+                $printer = $this->setAddress($printer, $order->address);
+            }
+            $printer = $this->setOrderItems($printer, $order->items);
+            $printer = $this->setTotals($printer, $order);
+
+            $printer->feed(2);
+            $printer->cut(Printer::CUT_PARTIAL);
+        } finally {
+            $printer->close();
+        }
 
         if ($markInProgress && $order->isNew) {
             $this->orderRepository->markInProgress($order);
@@ -87,12 +96,21 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
     {
         $printer->text(sprintf("%s\n", $address->name));
         $printer->text(sprintf("%s\n", $address->street));
+        if ($additional = $address->additional) {
+            $printer->text(sprintf("%s\n", $additional));
+        }
         $printer->text(sprintf("%s\n", $address->city));
         $printer->text(sprintf("%s\n", $address->phone));
 
         $printer->text($this->getDivider());
 
         return $printer;
+    }
+
+    private function createReceiptDirectoryIfNotExists(): void
+    {
+        $filesystem = new Filesystem();
+        $filesystem->exists($this->fileDirectory) || $filesystem->mkdir($this->fileDirectory);
     }
 
     /**
@@ -103,7 +121,7 @@ final readonly class PrintProcessor implements PrintOrderProcessorInterface
     private function setOrderItems(Printer $printer, array $items): Printer
     {
         foreach ($items as $item) {
-            $leftColumn = sprintf('%dx %s', $item->quantity, $item->label);
+            $leftColumn = sprintf('%dx %s', $item->quantity, ($this->receiptPositionGenerator)($item));
             $rightColumn = sprintf('%s €', $item->price);
             $this->addTwoColumnsRow($printer, $leftColumn, $rightColumn);
         }
